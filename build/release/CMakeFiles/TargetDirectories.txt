@@ -1,3 +1,0 @@
-C:/Users/Daniel/Desktop/Daniel/UnB/IDJ/Trabalhos/build/release/CMakeFiles/Trabalhos.dir
-C:/Users/Daniel/Desktop/Daniel/UnB/IDJ/Trabalhos/build/release/CMakeFiles/edit_cache.dir
-C:/Users/Daniel/Desktop/Daniel/UnB/IDJ/Trabalhos/build/release/CMakeFiles/rebuild_cache.dir
