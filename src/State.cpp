@@ -1,8 +1,8 @@
 #include "State.hpp"
 
-State::State() : bg("./img/ocean.jpg"){
-    tileSet = new TileSet(64, 64, std::string("./img/tileset.png"));
-    tileMap = new TileMap(std::string("./map/tileMap.txt"), tileSet);
+State::State() : bg("./resources/img/ocean.jpg"){
+    tileSet = new TileSet(64, 64, std::string("./resources/img/tileset.png"));
+    tileMap = new TileMap(std::string("./resources/map/tileMap.txt"), tileSet);
     quitRequested = false;
 }
 

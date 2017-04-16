@@ -1,6 +1,6 @@
 #include "Face.hpp"
 
-Face::Face(float x, float y) : GameObject(), sp("./img/penguinface.jpg"){
+Face::Face(float x, float y) : GameObject(), sp("./resources/img/penguinface.jpg"){
     hitpoints = 30;
     box = Rect(x - (sp.GetWidth() / 2), y - (sp.GetHeight() / 2), sp.GetWidth(), sp.GetHeight());
 }
