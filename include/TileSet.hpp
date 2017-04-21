@@ -1,5 +1,5 @@
-#ifndef _TILESET_
-#define _TILESET_
+#ifndef _TILESET_HPP_
+#define _TILESET_HPP_
 
 #include <string>
 
@@ -25,4 +25,4 @@ class TileSet{
 #include <vector>
 #include "TileMap.hpp"
 
-#endif // _TILESET_
+#endif // _TILESET_HPP_

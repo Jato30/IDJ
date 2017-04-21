@@ -1,5 +1,5 @@
-#ifndef _STATE_
-#define _STATE_
+#ifndef _STATE_HPP_
+#define _STATE_HPP_
 
 #include <vector>
 #include <memory>
@@ -19,9 +19,6 @@ class State{
         TileSet* tileSet;
         TileMap* tileMap;
 
-        //void Input();
-        void AddObject(float, float);
-
     public:
         State();
         ~State();
@@ -29,23 +26,22 @@ class State{
         void LoadAssets();
         void Update(float);
         void Render();
+        void AddObject(GameObject*);
 };
-
-#define M_PI 3.14159265358979323846264338327950288
 
 #include <cmath>
 #include <string>
 #include <cstdlib>
-#include "Face.hpp"
 #include "InputManager.hpp"
 #include "Camera.hpp"
+#include "Alien.hpp"
 
 #ifdef _WIN32
     // windows
     #include "SDL.h"
     #include "SDL_image.h"
 #elif __APPLE__
-   // #include "TargetConditionals.h"
+    #include "TargetConditionals.h"
     // mac
 #elif __linux__
     // linux
@@ -55,4 +51,4 @@ class State{
     #error "Unknown compiler"
 #endif
 
-#endif // _STATE_
+#endif // _STATE_HPP_

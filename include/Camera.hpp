@@ -1,5 +1,7 @@
-#ifndef _CAMERA_
-#define _CAMERA_
+#ifndef _CAMERA_HPP_
+#define _CAMERA_HPP_
+
+class Camera;
 
 #include "GameObject.hpp"
 #include "Vec2.hpp"
@@ -19,6 +21,6 @@ class Camera{
 
 #include "InputManager.hpp"
 
-#define CAMERA_SPEED 250
+#define CAMERA_SPEED 250 // Velocidade base
 
 #endif // _CAMERA_

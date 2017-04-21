@@ -13,7 +13,7 @@ TileSet::TileSet(int width, int height, std::string file){
 }
 
 void TileSet::Render(unsigned int index, float x, float y){
-    if(index < (rows * columns)){ // Quantidade de tiles
+    if(index < (unsigned int) (rows * columns)){ // Quantidade de tiles
 
         int clipX = (index % rows) * tileWidth;
         int clipY = ((int)(index / rows)) * tileHeight;

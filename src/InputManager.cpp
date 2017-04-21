@@ -44,6 +44,12 @@ void InputManager::Update(){
                         mouseState[LEFT_MOUSE_BUTTON] = true;
                         mouseUpdate[LEFT_MOUSE_BUTTON] = updateCounter;
                         break;
+
+                    // Botão direito [3]
+                    case RIGHT_MOUSE_BUTTON:
+                        mouseState[RIGHT_MOUSE_BUTTON] = true;
+                        mouseUpdate[RIGHT_MOUSE_BUTTON] = updateCounter;
+                        break;
                     // ACRESCENTAR OUTROS BOTÕES DO MOUSE
                 }
                 break;
@@ -56,6 +62,12 @@ void InputManager::Update(){
                     case LEFT_MOUSE_BUTTON:
                         mouseState[LEFT_MOUSE_BUTTON] = false;
                         mouseUpdate[LEFT_MOUSE_BUTTON] = updateCounter;
+                        break;
+
+                    // Botão direito [3]
+                    case RIGHT_MOUSE_BUTTON:
+                        mouseState[RIGHT_MOUSE_BUTTON] = false;
+                        mouseUpdate[RIGHT_MOUSE_BUTTON] = updateCounter;
                         break;
                 }
                 break;

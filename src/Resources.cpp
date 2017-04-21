@@ -12,10 +12,11 @@ SDL_Texture* Resources::GetImage(std::string file){
             imageTable.emplace(file, texture);
             return texture;
         }
+        else{
+            return nullptr;
+        }
     }
-    else{
-        return item->second;
-    }
+    return item->second;
 }
 
 void Resources::ClearImages(){

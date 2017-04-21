@@ -63,9 +63,9 @@ void Game::Run(){
 }
 
 void Game::CalculateDeltaTime(){
-    Uint32 newFrame = SDL_GetTicks();
+    float newFrame = SDL_GetTicks();
 
-    dt = (float) (newFrame - frameStart) / 1000;
+    dt = (newFrame - frameStart) / 1000;
     frameStart = (float) newFrame;
 }
 

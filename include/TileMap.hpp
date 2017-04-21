@@ -1,5 +1,5 @@
-#ifndef _TILEMAP_
-#define _TILEMAP_
+#ifndef _TILEMAP_HPP_
+#define _TILEMAP_HPP_
 
 #include <vector>
 #include <string>
@@ -21,7 +21,7 @@ class TileMap{
         void Load(std::string);
         void SetTileSet(TileSet*);
         int& At(int, int, int = 0);
-        void Render(int = 0, int = 0, int = 0);
+        void Render(int = 0, int = 0, int = 0, unsigned int = -1);
         void RenderLayer(int, int = 0, int = 0);
         int GetWidth();
         int GetHeight();
@@ -32,4 +32,4 @@ class TileMap{
 #include "Sprite.hpp"
 #include "Camera.hpp"
 
-#endif // _TILEMAP_
+#endif // _TILEMAP_HPP_

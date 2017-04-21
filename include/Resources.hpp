@@ -1,5 +1,5 @@
-#ifndef _RESOURCES_
-#define _RESOURCES_
+#ifndef _RESOURCES_HPP_
+#define _RESOURCES_HPP_
 
 #ifdef _WIN32
     // windows
@@ -30,4 +30,4 @@ class Resources{
 
 #include "Game.hpp"
 
-#endif // _RESOURCES_
+#endif // _RESOURCES_HPP_

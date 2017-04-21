@@ -84,11 +84,11 @@ void TileMap::RenderLayer(int layer, int cameraX, int cameraY){
     }
 }
 
-void TileMap::Render(int cameraX, int cameraY, int layer){
-    //for(int i = 0; i < mapDepth; i++){
+void TileMap::Render(int cameraX, int cameraY, int layerBegin, unsigned int layerEnd){
+    for(int i = layerBegin; i < mapDepth && (unsigned int) i <= layerEnd; i++){
         // Para não renderizar todo o MAP de uma vez, mas só a camada que eu quero
-        RenderLayer(layer, cameraX, cameraY);
-    //}
+        RenderLayer(i, cameraX, cameraY);
+    }
 }
 
 int TileMap::GetWidth(){

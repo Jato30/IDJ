@@ -1,5 +1,5 @@
-#ifndef _RECT_
-#define _RECT_
+#ifndef _RECT_HPP_
+#define _RECT_HPP_
 
 class Rect;
 
@@ -20,4 +20,4 @@ class Rect{
         bool IsInside(float, float);
 };
 
-#endif // _RECT_
+#endif // _RECT_HPP_

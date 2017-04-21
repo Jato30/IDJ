@@ -1,5 +1,5 @@
-#ifndef _INPUTMANAGER_
-#define _INPUTMANAGER_
+#ifndef _INPUTMANAGER_HPP_
+#define _INPUTMANAGER_HPP_
 
 #include <unordered_map>
 
@@ -55,10 +55,11 @@ class InputManager{
 #define DOWN_ARROW_KEY SDLK_DOWN
 #define ESCAPE_KEY SDLK_ESCAPE
 #define LEFT_MOUSE_BUTTON SDL_BUTTON_LEFT // [1]
+#define RIGHT_MOUSE_BUTTON SDL_BUTTON_RIGHT // [3]
 #define A_KEY SDLK_a
 #define W_KEY SDLK_w
 #define D_KEY SDLK_d
 #define S_KEY SDLK_s
 #define SPACE_KEY SDLK_SPACE
 
-#endif // _INPUTMANAGER_
+#endif // _INPUTMANAGER_HPP_
