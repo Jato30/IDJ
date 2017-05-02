@@ -1,12 +1,14 @@
 #include "State.hpp"
 
-State::State() : bg("./img/ocean.jpg"){
-    tileSet = new TileSet(64, 64, std::string("./img/tileset.png"));
-    tileMap = new TileMap(std::string("./map/tileMap.txt"), tileSet);
+State::State() : bg("./resources/img/ocean.jpg"){
+    tileSet = new TileSet(64, 64, std::string("./resources/img/tileset.png"));
+    tileMap = new TileMap(std::string("./resources/map/tileMap.txt"), tileSet);
     Alien* alien = new Alien(512, 300, rand() % 10 + 1);
     objectArray.emplace_back(alien);
+    Penguins* penguin = new Penguins(704, 640);
+    objectArray.emplace_back(penguin);
     quitRequested = false;
-    
+    Camera::Follow(penguin);
 }
 
 State::~State(){
@@ -24,13 +26,26 @@ void State::Update(float dt){
     if(QuitRequested() || INPUT_M.QuitRequested()){
         quitRequested = true;
     }
+
     if(INPUT_M.KeyPress(SPACE_KEY)){
-        //AddObject((float) INPUT_M.GetMouseX(), (float) INPUT_M.GetMouseY());
         Alien* alien2 = new Alien(512 - Camera::pos.x, 300 - Camera::pos.y, rand() % 11);
         objectArray.emplace_back(alien2);
     }
     for(unsigned int i = 0; i < objectArray.size(); i++){
         objectArray[i]->Update(dt);
+    }
+
+    unsigned int size = objectArray.size();
+    for(unsigned int i = 0; i < size; i++){
+        for(unsigned int j = i + 1; j < size; j++){
+            if(Collision::IsColliding(objectArray[i]->box, objectArray[j]->box, objectArray[i]->rotation, objectArray[j]->rotation)){
+                objectArray[j]->NotifyCollision(*objectArray[i]);
+                objectArray[i]->NotifyCollision(*objectArray[j]);
+            }
+        }
+
+    }
+    for(int i = objectArray.size() - 1; i >= 0; i--){
         if(objectArray[i]->IsDead()){
             objectArray.erase(objectArray.begin() + i);
         }

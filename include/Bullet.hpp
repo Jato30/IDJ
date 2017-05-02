@@ -16,10 +16,14 @@ class Bullet : public GameObject{
         float distanceLeft;
 
     public:
-        Bullet(float, float, float, float, float, std::string);
+        bool targetsPlayer;
+
+        Bullet(float, float, float, float, float, std::string, float, int, bool);
         void Update(float);
         void Render();
         bool IsDead();
+        void NotifyCollision(GameObject&);
+        bool Is(std::string);
 };
 
 #include "Camera.hpp"

@@ -36,6 +36,10 @@ void Vec2::operator/=(Vec2 v){
     y /= v.y;
 }
 
+bool Vec2::operator==(Vec2 v){
+    return x == v.x && y == v.y;
+}
+
 float Vec2::Magnitude(){
     return std::sqrt(std::pow(x, 2) + std::pow(y, 2));
 }
@@ -73,9 +77,10 @@ Vec2 Vec2::Center(){
     return centro;
 }
 
-void Vec2::Unit(){
+Vec2& Vec2::Unit(){
     x /= Magnitude();
     y /= Magnitude();
+    return *this;
 }
 
 // Distância do Vec2 passado até THIS
@@ -93,4 +98,20 @@ Vec2 Vec2::AngleX(Vec2 v){
 float Vec2::ToAngle(Vec2 v){
     float teta = std::atan2((v.y - y), (v.x - x));
     return teta;
+}
+
+Vec2 Vec2::operator+(const Vec2& rhs) const{
+    return Vec2(x + rhs.x, y + rhs.y);
+}
+
+Vec2 Vec2::operator-(const Vec2& rhs) const{
+    return Vec2(x - rhs.x, y - rhs.y);
+}
+
+Vec2 Vec2::operator*(const float rhs) const{
+    return Vec2(x * rhs, y * rhs);
+}
+
+bool Vec2::NearBy(Vec2 v){
+    return (x <= v.x + 10 && x >= v.x - 10) && (y <= v.y + 10 && y >= v.y - 10);
 }

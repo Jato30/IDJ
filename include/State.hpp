@@ -35,6 +35,8 @@ class State{
 #include "InputManager.hpp"
 #include "Camera.hpp"
 #include "Alien.hpp"
+#include "Penguins.hpp"
+#include "Collision.hpp"
 
 #ifdef _WIN32
     // windows

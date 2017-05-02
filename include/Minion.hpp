@@ -22,6 +22,8 @@ class Minion : public GameObject{
         void Render();
         bool IsDead();
         void Shoot(Vec2);
+        void NotifyCollision(GameObject&);
+        bool Is(std::string);
 };
 
 #include <cstdlib>

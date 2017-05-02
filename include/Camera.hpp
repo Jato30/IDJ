@@ -20,7 +20,8 @@ class Camera{
 };
 
 #include "InputManager.hpp"
+#include "Penguins.hpp"
 
-#define CAMERA_SPEED 250 // Velocidade base
+#define CAMERA_SPEED 400 // Velocidade base
 
 #endif // _CAMERA_

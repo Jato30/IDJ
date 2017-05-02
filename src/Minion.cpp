@@ -1,13 +1,12 @@
 #include "Minion.hpp"
 
-Minion::Minion(GameObject* minionCenter, float arcOffSet) : GameObject(), sp("./img/minion.png"){
+Minion::Minion(GameObject* minionCenter, float arcOffSet) : GameObject(), sp("./resources/img/minion.png"){
     center = minionCenter;
     arc = arcOffSet;
 
-    float scale = (float) ((rand() % 500) + 1000) / 1000;
+    float scale = (float) ((rand() % 50) + 100) / 100;
     sp.SetScaleX(scale);
     sp.SetScaleY(scale);
-    printf("Escala: %.3f\n", scale);
     box = Rect(center->box.x + center->box.w + (RAIO * std::cos(arc)), center->box.y + center->box.h + (RAIO * std::sin(arc)), sp.GetWidth(), sp.GetHeight());
 }
 
@@ -18,7 +17,7 @@ Minion::~Minion(){
 void Minion::Update(float dt){
     box.x = center->box.x + (RAIO * std::cos(arc));
     box.y = center->box.y + (RAIO * std::sin(arc));
-    arc += MINION_SPEED * dt;
+    arc += OBJECT_ANGULAR_SPEED * dt;
 
     if(arc > 2 * M_PI){
         arc -= (2 * M_PI);
@@ -37,6 +36,16 @@ bool Minion::IsDead(){
 void Minion::Shoot(Vec2 pos){
     Vec2 minionCenter(box.x + box.w, box.y + box.h);
 
-    Bullet* bullet = new Bullet(minionCenter.x, minionCenter.y, minionCenter.ToAngle(pos), OBJECT_SPEED * 4 , minionCenter.Distance(pos), "./img/minionbullet1.png");
-    Game::GetInstance().GetState().AddObject(bullet);
+    Bullet* minionBullet = new Bullet(minionCenter.x, minionCenter.y, minionCenter.ToAngle(pos), OBJECT_LINEAR_SPEED * 4 , minionCenter.Distance(pos), "./resources/img/minionbullet2.png", 0.2, 3, true);
+    Game::GetInstance().GetState().AddObject(minionBullet);
+}
+
+void Minion::NotifyCollision(GameObject& other){
+    if(other.Is("Bullet")){
+        
+    }
+}
+
+bool Minion::Is(std::string type){
+    return (type == "Minion");
 }

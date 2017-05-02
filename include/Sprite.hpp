@@ -26,10 +26,14 @@ class Sprite{
         SDL_Rect clipRect;
         float scaleX;
         float scaleY;
+        int frameCount;
+        int currentFrame;
+        float timeElapsed;
+        float frameTime;
 
     public:
         Sprite();
-        Sprite(std::string);
+        Sprite(std::string, int = 1, float = 1);
         ~Sprite();
         void Open(std::string);
         void SetClip(int, int, int, int);
@@ -39,6 +43,11 @@ class Sprite{
         bool IsOpen();
         void SetScaleX(float);
         void SetScaleY(float);
+        void SetScale(float);
+        void Update(float);
+        void SetFrame(int);
+        void SetFrameCount(int);
+        void SetFrameTime(float);
 };
 
 #include "Game.hpp"

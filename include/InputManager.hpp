@@ -60,6 +60,9 @@ class InputManager{
 #define W_KEY SDLK_w
 #define D_KEY SDLK_d
 #define S_KEY SDLK_s
+#define Q_KEY SDLK_q
+#define E_KEY SDLK_e
+#define Y_KEY SDLK_y
 #define SPACE_KEY SDLK_SPACE
 
 #endif // _INPUTMANAGER_HPP_

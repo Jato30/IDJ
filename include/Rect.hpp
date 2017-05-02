@@ -15,8 +15,8 @@ class Rect{
         Rect();
         Rect(float, float, float, float);
         // retorno SumRectVec2(Rect, Vec2);
-        Vec2 CenterRect();
-        float CenterDistRects(Rect);
+        Vec2 GetCenter();
+        float CenterDistance(Rect);
         bool IsInside(float, float);
 };
 
