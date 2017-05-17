@@ -37,7 +37,7 @@ void Penguins::Update(float dt){
 
     // Movimento
     if(INPUT_M.IsKeyDown(W_KEY)){
-        if(speed.x >= -(OBJECT_LINEAR_SPEED * 5 * dt) && speed.x <= (OBJECT_LINEAR_SPEED * 5 * dt)){
+        if(speed.x >= -(OBJECT_LINEAR_MAX_SPEED * dt) && speed.x <= (OBJECT_LINEAR_MAX_SPEED * dt)){
             if(speed.x < 0){
                 speed.x += linearSpeed * 3 * dt;
             }
@@ -45,7 +45,7 @@ void Penguins::Update(float dt){
                 speed.x += linearSpeed * dt;
             }
         }
-        if(speed.y >= -(OBJECT_LINEAR_SPEED * 5 * dt) && speed.y <= (OBJECT_LINEAR_SPEED * 5 * dt)){
+        if(speed.y >= -(OBJECT_LINEAR_MAX_SPEED * dt) && speed.y <= (OBJECT_LINEAR_MAX_SPEED * dt)){
             if(speed.y < 0){
                 speed.y += linearSpeed * 3 * dt;
             }
@@ -55,7 +55,7 @@ void Penguins::Update(float dt){
         }
     }
     if(INPUT_M.IsKeyDown(S_KEY)){
-        if(speed.x >= -(OBJECT_LINEAR_SPEED * 5 * dt) && speed.x <= (OBJECT_LINEAR_SPEED * 5 * dt)){
+        if(speed.x >= -(OBJECT_LINEAR_MAX_SPEED * dt) && speed.x <= (OBJECT_LINEAR_MAX_SPEED * dt)){
             if(speed.x > 0){
                 speed.x -= linearSpeed * 3 * dt;
             }
@@ -63,7 +63,7 @@ void Penguins::Update(float dt){
                 speed.x -= linearSpeed * dt;
             }
         }
-        if(speed.y >= -(OBJECT_LINEAR_SPEED * 5 * dt) && speed.y <= (OBJECT_LINEAR_SPEED * 5 * dt)){
+        if(speed.y >= -(OBJECT_LINEAR_MAX_SPEED * dt) && speed.y <= (OBJECT_LINEAR_MAX_SPEED * dt)){
             if(speed.y > 0){
                 speed.y -= linearSpeed * 3 * dt;
             }
@@ -103,6 +103,19 @@ void Penguins::Update(float dt){
     box.x += speed.x * std::cos(rotation);
     box.y += speed.y * std::sin(rotation);
 
+    if(box.GetCenter().x > 1408){
+        box.x = 1408 - (box.w / 2);
+    }
+    if(box.GetCenter().x < 0){
+        box.x = 0 - (box.w / 2);
+    }
+    if(box.GetCenter().y > 1280){
+        box.y = 1280 - (box.h / 2);
+    }
+    if(box.GetCenter().y < 0){
+        box.y = 0 - (box.h / 2);
+    }
+
     cannonAngle = Vec2(box.GetCenter().x + Camera::pos.x, box.GetCenter().y + Camera::pos.y).ToAngle(Vec2(INPUT_M.GetMouseX(), INPUT_M.GetMouseY()));
 
     if(INPUT_M.IsMouseDown(LEFT_MOUSE_BUTTON)){
@@ -127,8 +140,8 @@ bool Penguins::IsDead(){
 
 void Penguins::Shoot(){
     if(cooldown.Get() >= 1){
-        Bullet* penguinBullet = new Bullet(box.GetCenter().x - rotation, box.GetCenter().y - rotation, cannonAngle, OBJECT_LINEAR_SPEED * 5, 750, "./resources/img/penguinbullet.png", 0.5, 4, false);
-        Game::GetInstance().GetState().AddObject(penguinBullet);
+        Bullet* penguinBullet = new Bullet(box.GetCenter().x - rotation, box.GetCenter().y - rotation, cannonAngle, OBJECT_LINEAR_MAX_SPEED, 750, "./resources/img/penguinbullet.png", 0.5, 4, false);
+        Game::GetInstance().GetCurrentState().AddObject(penguinBullet);
         cooldown.Restart();
     }
 }
@@ -144,7 +157,9 @@ void Penguins::NotifyCollision(GameObject& other){
     }
     if(hp <= 0){
         Animation* animation = new Animation(box.x, box.y, rotation, "./resources/img/penguindeath.png", 5, 0.1, true);
-        Game::GetInstance().GetState().AddObject(animation);
+        Game::GetInstance().GetCurrentState().AddObject(animation);
+        Sound* soundExplosion = new Sound("./resources/audio/boom.wav");
+        soundExplosion->Play(0);
     }
 }
 

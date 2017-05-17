@@ -27,11 +27,11 @@ Sprite::~Sprite(){
 
 void Sprite::Open(std::string file){
     texture = Resources::GetImage(file);
-    if(texture == nullptr){
+    if(texture.get() == nullptr){
         printf("Impossível carregar imagem: %s", SDL_GetError());
-        exit(0);
+        exit(1);
     }
-    SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+    SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);
     SetClip(currentFrame, 0, (width / frameCount), height);
 }
 
@@ -50,7 +50,7 @@ void Sprite::Render(int x, int y, float angle){
     dstrect->y = y;
     dstrect->w = clipRect.w * scaleX;
     dstrect->h = clipRect.h * scaleY;
-    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture, &clipRect, dstrect, (double) angle, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(Game::GetInstance().GetRenderer(), texture.get(), &clipRect, dstrect, (double) angle, nullptr, SDL_FLIP_NONE);
 }
 
 int Sprite::GetWidth(){
@@ -62,7 +62,7 @@ int Sprite::GetHeight(){
 }
 
 bool Sprite::IsOpen(){
-    return texture != nullptr;
+    return texture.get() != nullptr;
 }
 
 void Sprite::SetScaleX(float scale){

@@ -18,6 +18,7 @@ Alien::Alien(float x, float y, int nMinions) : GameObject(), sp("./resources/img
     destination = Vec2();
     restTimer = Timer();
     shootCooldown = Timer();
+    isStarted = Timer();
 }
 
 Alien::~Alien(){
@@ -26,49 +27,52 @@ Alien::~Alien(){
 
 void Alien::Update(float dt){
     shootCooldown.Update(dt);
+    isStarted.Update(dt);
 
     if(Penguins::player != nullptr){
-        switch(state){
-            case RESTING:
-                if(shootCooldown.Get() > 0.3){
-                    shootCooldown.Restart();
+        if(isStarted.Get() > 1){
+            switch(state){
+                case RESTING:
+                    if(shootCooldown.Get() > 0.25 + ((rand() % 25) / 100)){
+                        shootCooldown.Restart();
 
-                    if(minionArray.size() > 0){
-                        // Minion mais próximo do destino do tiro
-                        int closestIndex = 0;
-                        Vec2 posClosest = minionArray[closestIndex].box.GetCenter();
-                        float closestDistance = posClosest.Distance(Penguins::player->box.GetCenter());
-                        for(unsigned int i = 0; i < minionArray.size(); i++){
-                            posClosest = minionArray[i].box.GetCenter();
-                            if(posClosest.Distance(Penguins::player->box.GetCenter()) <= closestDistance){
-                                closestDistance = posClosest.Distance(Penguins::player->box.GetCenter());
-                                closestIndex = i;
+                        if(minionArray.size() > 0){
+                            // Minion mais próximo do destino do tiro
+                            int closestIndex = 0;
+                            Vec2 posClosest = minionArray[closestIndex].box.GetCenter();
+                            float closestDistance = posClosest.Distance(Penguins::player->box.GetCenter());
+                            for(unsigned int i = 0; i < minionArray.size(); i++){
+                                posClosest = minionArray[i].box.GetCenter();
+                                if(posClosest.Distance(Penguins::player->box.GetCenter()) <= closestDistance){
+                                    closestDistance = posClosest.Distance(Penguins::player->box.GetCenter());
+                                    closestIndex = i;
+                                }
                             }
+                            minionArray[closestIndex].Shoot(Penguins::player->box.GetCenter());
                         }
-                        minionArray[closestIndex].Shoot(Penguins::player->box.GetCenter());
                     }
-                }
 
-                restTimer.Update(dt);
-                if(restTimer.Get() >= 0.76 + ((rand() % 75) / 100)){
-                    destination = Penguins::player->box.GetCenter();
-                    // Calcula velocidade de módulo constante e linha reta ao destino
-                    state = MOVING;
-                }
-                break;
-            
-            case MOVING:
-                // Se chegou ao destino
-                if(box.GetCenter().NearBy(destination)){
-                    speed = 0;
-                    state = RESTING;
-                    restTimer.Restart();
-                }
-                speed = (OBJECT_LINEAR_SPEED * dt);
-                speed *= box.GetCenter().AngleX(destination);
-                box.x += speed.x;
-                box.y += speed.y;
-                break;
+                    restTimer.Update(dt);
+                    if(restTimer.Get() >= 0.5 + ((rand() % 150) / 100)){
+                        destination = Penguins::player->box.GetCenter();
+                        // Calcula velocidade de módulo constante e linha reta ao destino
+                        state = MOVING;
+                    }
+                    break;
+                
+                case MOVING:
+                    // Se chegou ao destino
+                    if(box.GetCenter().NearBy(destination)){
+                        speed = 0;
+                        state = RESTING;
+                        restTimer.Restart();
+                    }
+                    speed = (OBJECT_LINEAR_SPEED * 1.5 * dt);
+                    speed *= box.GetCenter().AngleX(destination);
+                    box.x += speed.x;
+                    box.y += speed.y;
+                    break;
+            }
         }
     }
 
@@ -105,12 +109,14 @@ void Alien::NotifyCollision(GameObject& other){
     }
     if(hp <= 0){
         Animation* alienAnimation = new Animation(box.x, box.y, rotation, "./resources/img/aliendeath.png", 4, 0.1, true);
-        Game::GetInstance().GetState().AddObject(alienAnimation);
+        Game::GetInstance().GetCurrentState().AddObject(alienAnimation);
         Animation* minionAnimation;
         for(unsigned int i = 0; i < minionArray.size(); i++){
             minionAnimation = new Animation(minionArray[i].box.x, minionArray[i].box.y, minionArray[i].rotation, "./resources/img/miniondeath.png", 4, 0.1, true);
-            Game::GetInstance().GetState().AddObject(minionAnimation);
+            Game::GetInstance().GetCurrentState().AddObject(minionAnimation);
         }
+        Sound* soundExplosion = new Sound("./resources/audio/boom.wav");
+        soundExplosion->Play(0);
     }
 }
 

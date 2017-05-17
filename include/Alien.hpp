@@ -28,6 +28,7 @@ class Alien : public GameObject{
         Timer restTimer;
         Vec2 destination;
         Timer shootCooldown;
+        Timer isStarted;
 
     public:
         static int alienCount;
@@ -44,5 +45,6 @@ class Alien : public GameObject{
 #include "Rect.hpp"
 #include "InputManager.hpp"
 #include "Camera.hpp"
+#include "Sound.hpp"
 
 #endif // _ALIEN_HPP_

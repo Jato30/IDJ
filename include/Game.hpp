@@ -19,6 +19,8 @@
 #endif
 
 #include <string>
+#include <stack>
+#include <memory>
 
 class Game;
 
@@ -26,26 +28,27 @@ class Game;
 
 class Game{
     private:
-        static Game* instance;
-        SDL_Window* window;
-        SDL_Renderer* renderer;
-        State* state;
         int frameStart;
         float dt;
+        static Game* instance;
+        State* storedState;
+        SDL_Window* window;
+        SDL_Renderer* renderer;
+        std::stack<std::unique_ptr<State>> stateStack;
 
         void CalculateDeltaTime();
 
     public:
         Game(std::string, int, int);
         ~Game();
-        void Run();
-        SDL_Renderer* GetRenderer();
-        State& GetState();
         static Game& GetInstance();
+        SDL_Renderer* GetRenderer();
+        State& GetCurrentState();
+        void Push(State*);
+        void Run();
         float GetDeltaTime();
 };
 
-#include "Sprite.hpp"
 #include "Resources.hpp"
 #include "InputManager.hpp"
 

@@ -31,7 +31,7 @@ void InputManager::Update(){
     while(SDL_PollEvent(&event)){
         switch(event.type){
             // Clique no X, Alt+F4, etc.
-            case SDL_QUIT:
+            case SDL_QUIT: case ESC_KEY:
                 quitRequested = true;
                 break;
 

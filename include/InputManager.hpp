@@ -64,5 +64,6 @@ class InputManager{
 #define E_KEY SDLK_e
 #define Y_KEY SDLK_y
 #define SPACE_KEY SDLK_SPACE
+#define ESC_KEY 27
 
 #endif // _INPUTMANAGER_HPP_

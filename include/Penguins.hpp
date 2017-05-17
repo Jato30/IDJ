@@ -34,6 +34,7 @@ class Penguins : public GameObject{
 #include "InputManager.hpp"
 #include "Camera.hpp"
 #include "Animation.hpp"
-#include "Game.hpp"
+#include "Bullet.hpp"
+#include "Sound.hpp"
 
 #endif // _PENGUINS_HPP_

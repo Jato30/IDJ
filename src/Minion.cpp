@@ -37,7 +37,7 @@ void Minion::Shoot(Vec2 pos){
     Vec2 minionCenter(box.x + box.w, box.y + box.h);
 
     Bullet* minionBullet = new Bullet(minionCenter.x, minionCenter.y, minionCenter.ToAngle(pos), OBJECT_LINEAR_SPEED * 4 , minionCenter.Distance(pos), "./resources/img/minionbullet2.png", 0.2, 3, true);
-    Game::GetInstance().GetState().AddObject(minionBullet);
+    Game::GetInstance().GetCurrentState().AddObject(minionBullet);
 }
 
 void Minion::NotifyCollision(GameObject& other){

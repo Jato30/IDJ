@@ -6,51 +6,33 @@
 
 class State;
 
-#include "Sprite.hpp"
 #include "GameObject.hpp"
-#include "TileSet.hpp"
-#include "TileMap.hpp"
 
 class State{
-    private:
-        Sprite bg;
+    protected:
+        bool popRequested;
         bool quitRequested;
         std::vector<std::unique_ptr<GameObject>> objectArray;
-        TileSet* tileSet;
-        TileMap* tileMap;
+
+        virtual void UpdateArray(float);
+        virtual void RenderArray();
 
     public:
         State();
-        ~State();
+        virtual ~State();
+        virtual void Update(float) = 0;
+        virtual void Render() = 0;
+        virtual void LoadAssets() = 0;
+        virtual void Pause() = 0;
+        virtual void Resume() = 0;
+        virtual void AddObject(GameObject*);
+        bool PopRequested();
         bool QuitRequested();
-        void LoadAssets();
-        void Update(float);
-        void Render();
-        void AddObject(GameObject*);
 };
 
-#include <cmath>
-#include <string>
-#include <cstdlib>
-#include "InputManager.hpp"
-#include "Camera.hpp"
-#include "Alien.hpp"
-#include "Penguins.hpp"
 #include "Collision.hpp"
-
-#ifdef _WIN32
-    // windows
-    #include "SDL.h"
-    #include "SDL_image.h"
-#elif __APPLE__
-    #include "TargetConditionals.h"
-    // mac
-#elif __linux__
-    // linux
-    #include<SDL2/SDL.h>
-    #include<SDL2/SDL_image.h>
-#else
-    #error "Unknown compiler"
-#endif
+#include "Timer.hpp"
+#include "Camera.hpp"
+#include "Text.hpp"
 
 #endif // _STATE_HPP_
