@@ -5,22 +5,26 @@ EndState::EndState(StateData stateData) : State(),
     music((stateData.playerVictory) ? "./resources/audio/endStateWin.ogg" : "./resources/audio/endStateLose.ogg"),
     instruction("./resources/font/Call me maybe.ttf", 36, Text::TextStyle::BLENDED, "ESC to main menu or Space bar to try again", Text::GetColor(Text::Colors::WHITE), new Timer()){
 
+    music.Play(-1);
     instruction.SetPos(512, 30, true);
 }
 
 void EndState::Update(float dt){
     dt = dt;
     if(QuitRequested() || INPUT_M.QuitRequested()){
+        music.Stop();
         quitRequested = true;
     }
 
     if(INPUT_M.KeyPress(ESC_KEY)){
+        music.Stop();
         popRequested = true;
         TitleState* titleState = new TitleState();
         Game::GetInstance().Push(titleState);
     }
 
     if(INPUT_M.KeyPress(SPACE_KEY)){
+        music.Stop();
         popRequested = true;
         StageState* stage = new StageState();
         Game::GetInstance().Push(stage);
